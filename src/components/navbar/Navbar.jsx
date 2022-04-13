@@ -5,6 +5,8 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
 import React from 'react';
 
+import useClickOutside from '../../customHooks/ClickOutside';
+
 const Navbar = ({ BurgerColour }) => {
   const MenuLink = ({ url, path }) => {
     return (
@@ -20,6 +22,9 @@ const Navbar = ({ BurgerColour }) => {
   };
 
   const [isNavOpen, setIsNavOpen] = useState(false);
+  let domNode = useClickOutside(() => {
+    setIsNavOpen(false);
+  });
 
   return (
     <div className={styles.navbar_container}>
@@ -43,6 +48,7 @@ const Navbar = ({ BurgerColour }) => {
           className={`${isNavOpen ? styles.ul_active : undefined} ${
             styles.navbar_ul
           }`}
+          ref={domNode}
         >
           <div
             className={styles.mobile_close}
